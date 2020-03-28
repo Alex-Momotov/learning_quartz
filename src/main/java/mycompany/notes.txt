@@ -1,0 +1,27 @@
+-------------------------------------------------------------------------------------
+    Quartz
+http://www.quartz-scheduler.org/documentation/quartz-2.3.0/
+http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/ConfigDataSources
+
+- Quartz can be instantiated as a cluster of stand-alone programs (with load-balance and fail-over capabilities) for the execution of jobs
+- Quartz’s built-in clustering features rely upon database persistence via JDBCJobStore.
+- Terracotta extensions to Quartz provide clustering capabilities without the need for a backing database.
+
+- The design of Quartz includes a JobStore interface that can be implemented to provide various mechanisms for the storage of jobs.
+- With the use of the included JDBCJobStore, all Jobs and Triggers configured as "non-volatile" are stored in a relational database via JDBC.
+
+    Setting up Quarts
+- put on classpath quartz-2.3.0-SNAPSHOT/lib/quartz-2.3.0-SNAPSHOT.jar
+- put on classpath the dependency jars - other files in quartz-2.3.0-SNAPSHOT/lib/...
+- put on classpath quartz.properties
+  Allows to configure quartz and will be needed for anything more than basic
+
+- most basic quartz.properties file content to get started:
+org.quartz.scheduler.instanceName = MyScheduler
+org.quartz.threadPool.threadCount = 3
+org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore
+
+    Configuration (quartz.properties)
+"org.quartz.threadPool.threadCount = 3" means max of 3 jobs will be run simultaneously.
+
+//----------------------------------------------------------------------------------------------------------------------
