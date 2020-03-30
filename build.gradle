@@ -18,7 +18,10 @@ dependencies {
 
 
     // quartz
-    compile fileTree(include: ['*.jar'], dir: 'quartz_libs')
+//    compile fileTree(include: ['*.jar'], dir: 'quartz_libs')
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.0'
+
+
 
     // testing
     testCompile group: 'junit', name: 'junit', version: '4.12'
