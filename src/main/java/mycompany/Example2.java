@@ -53,7 +53,7 @@ public class Example2 {
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-//      Key interfaces
+//      Key classes
 // Scheduler        Main API for interacting with scheduler. Used to add / remove / list jobs and triggers.
 
 // Job              Interface. Class that implements Job defines what work will actually be executed.
@@ -70,7 +70,7 @@ public class Example2 {
 
 //----------------------------------------------------------------------------------------------------------------------
 //      Identity - Naming Trigger or Job
-// A trigger of a job name consists of a 'name' and 'group'.
+// A trigger or a job name consists of a 'name' and 'group'.
 // A job/trigger name must be unique within the group.
 
 // Group is used to organise jobs/triggers together, e.g. 'reporting jobs' or 'maintanance jobs'.  While 'name'
