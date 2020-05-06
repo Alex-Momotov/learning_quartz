@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------------
     Quartz
 http://www.quartz-scheduler.org/documentation/quartz-2.3.0/
-http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/ConfigDataSources
+http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/
 
 - Quartz can be instantiated as a cluster of stand-alone programs (with load-balance and fail-over capabilities) for the execution of jobs
 - Quartz’s built-in clustering features rely upon database persistence via JDBCJobStore.
