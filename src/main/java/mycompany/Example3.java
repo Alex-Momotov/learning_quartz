@@ -69,3 +69,14 @@ public class Example3 {
     }
 
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+//      JobDataMap per trigger
+// JobDataMap can be associated with triggers too. Then the trigger will pass the map to the job. This is useful if you
+// want the job to be executed differently depending on what triggered it.
+
+// The JobDataMap found in JobExecutionContext is a joined map between JobDataMap found in JobDetail and JobTrigger.
+// Values in the trigger map override values in JobDetail map when their keys are the same.
+
+//----------------------------------------------------------------------------------------------------------------------
+

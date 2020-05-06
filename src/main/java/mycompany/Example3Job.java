@@ -16,7 +16,8 @@ public class Example3Job implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
+        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();     // JobDataMap coming from JobDetail
+        JobDataMap mergedJobDataMap = context.getMergedJobDataMap();        // JobDataMap merged from JobDetail and Trigger
 
         List<Integer> list = (List<Integer>) jobDataMap.get("list");
         int num = jobDataMap.getInt("num");
