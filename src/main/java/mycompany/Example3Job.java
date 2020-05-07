@@ -1,9 +1,11 @@
 package mycompany;
 
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.PersistJobDataAfterExecution;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class Example3Job implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         System.out.println("Starting the job: " + context.getJobDetail().getKey());     // name and group of JobDetail
 
-        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();     // JobDataMap coming from JobDetail
+        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();     // JobDataMap coming from JobDetail. Typically we want to use this one.
         JobDataMap mergedJobDataMap = context.getMergedJobDataMap();        // JobDataMap merged from JobDetail and Trigger
 
         setUpJobResources(jobDataMap);

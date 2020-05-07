@@ -27,6 +27,7 @@ import static mycompany.Example3Job.REPETITION_NUM_PARAM;
 // Ramification 2 - Jobs must be stateless, they are garbage collected between executions anyways.
 
 // In order to provide resources to your job, and keep track of state between executions we must use JobDataMap.
+// For saving state between jobs use @DisallowConcurrentExecution and @PersistJobDataAfterExecution annotations on Job class.
 
 //----------------------------------------------------------------------------------------------------------------------
 //      JobDataMap
@@ -92,6 +93,17 @@ public class Example3 {
 
 // The JobDataMap found in JobExecutionContext is a joined map between JobDataMap found in JobDetail and JobTrigger.
 // Values in the trigger map override values in JobDetail map when their keys are the same.
+
+//----------------------------------------------------------------------------------------------------------------------
+//      Job instances
+// You can create a single job class (impl Job interface) then store multiple instances of it within the scheduler by
+// creating multiple instances of JobDetails - each with it's own set of properties and JobDataMap and adding them all
+// to the scheduler.
+//----------------------------------------------------------------------------------------------------------------------
+//      Definitions
+// 'Job class'                                          Class implementing the Job interface
+// 'job definition' or 'JobDetail instance'             Instance of JobDetail
+// 'job instance' or 'instance of a job definition'     Execution of JobDetail in a particular moment in time
 
 //----------------------------------------------------------------------------------------------------------------------
 
