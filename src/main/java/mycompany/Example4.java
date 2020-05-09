@@ -10,10 +10,18 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
+import static mycompany.Example4Job.COUNTER;
+import static mycompany.Example4Job.NUM_EXCEPTIONS;
+
 //----------------------------------------------------------------------------------------------------------------------
 // Example of keeping state between executions of a particular JobDetail
 // In this example we increment a counter each time our JobDetail executes
 
+// Other properties of JobDetail
+// Job durability   By default the JobDetail disappears when it is no longer assigned to a trigger. Setting durable to
+//                  'true' like job.storeDurability() makes the JobDetail still live after all it's triggers disappear.
+// Job recovery     Provides fail-over for JobDetail within a cluster. If while the job was executing, the machine
+//                  running it crashed, the job will be re-executed by another node in Quartz cluster.
 //----------------------------------------------------------------------------------------------------------------------
 
 public class Example4 {
@@ -21,7 +29,7 @@ public class Example4 {
     public static void main(String[] args) {
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-            scheduler.start();
+             scheduler.start();
 
             action(scheduler);
             Thread.sleep(10_000);
@@ -43,10 +51,13 @@ public class Example4 {
 
     public static void action(Scheduler scheduler) throws SchedulerException {
         JobDataMap jobMap = new JobDataMap();
-        jobMap.put("counter", 1);
+        jobMap.put(COUNTER, 1);
+        jobMap.put(NUM_EXCEPTIONS, 3);
 
         JobDetail job = JobBuilder.newJob(Example4Job.class)
                 .withIdentity("name1", "group1")
+                .storeDurably()     // the job durability option
+                .requestRecovery()  // the job recovery option - cluster fail-over
                 .setJobData(jobMap)
                 .build();
 

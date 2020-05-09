@@ -18,27 +18,28 @@ public class Example3Job implements Job {
     static final String DB_CONNECTION_PARAM         = "db_connection";
     static final String KAFKA_PRODUCER_PARAM        = "kafka_producer";
 
-
     private List<Integer> integerList;
     private int repetitionNum;
     private String completionMessage;
     private Example3.DbConnection dbConnection;
     private Example3.KafkaProducer kafkaProducer;
 
-
     public Example3Job() {
     }
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.out.println("Starting the job: " + context.getJobDetail().getKey());     // name and group of JobDetail
+        try {
+            System.out.println("Starting the job: " + context.getJobDetail().getKey());     // name and group of JobDetail
 
-        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();     // JobDataMap coming from JobDetail. Typically we want to use this one.
-        JobDataMap mergedJobDataMap = context.getMergedJobDataMap();        // JobDataMap merged from JobDetail and Trigger
+            JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();     // JobDataMap coming from JobDetail. Typically we want to use this one.
+            JobDataMap mergedJobDataMap = context.getMergedJobDataMap();        // JobDataMap merged from JobDetail and Trigger
 
-        setUpJobResources(jobDataMap);
-        performJob();
-
+            setUpJobResources(jobDataMap);
+            performJob();
+        } catch (Exception e) {
+            throw new JobExecutionException(e);
+        }
     }
 
 
