@@ -22,6 +22,8 @@ import static mycompany.Example4Job.NUM_EXCEPTIONS;
 //                  'true' like job.storeDurability() makes the JobDetail still live after all it's triggers disappear.
 // Job recovery     Provides fail-over for JobDetail within a cluster. If while the job was executing, the machine
 //                  running it crashed, the job will be re-executed by another node in Quartz cluster.
+
+// If a job is being executed as recovery, the context.isRecovering() of JobExecutionContext will return true.
 //----------------------------------------------------------------------------------------------------------------------
 
 public class Example4 {
