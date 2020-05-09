@@ -40,7 +40,7 @@ import java.util.Date;
 // There are multiple callendar implementations available in org.quartz.impl.calendar package.
 
 //----------------------------------------------------------------------------------------------------------------------
-public class Example5 {
+public class _5_Triggers {
     final static String CALENDAR = "mycalendar";
     final static String JOB_NAME = "name1";
     final static String JOB_GROUP = "group1";
@@ -103,7 +103,7 @@ public class Example5 {
     }
 
     public static JobDetail simpleJob() {
-        return JobBuilder.newJob(Example2Job.class)
+        return JobBuilder.newJob(_2_HelloWorldJob.class)
                 .withIdentity(JOB_NAME, JOB_GROUP)
                 .storeDurably()
                 .build();

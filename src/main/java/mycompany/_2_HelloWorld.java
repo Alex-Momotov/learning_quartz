@@ -14,7 +14,7 @@ import org.quartz.impl.StdSchedulerFactory;
 //----------------------------------------------------------------------------------------------------------------------
 //      Hello World Job
 // 'Hello world' job, triggered now, then every 2 sec, repeats forever. HelloJob is defined in separate class.
-public class Example2 {
+public class _2_HelloWorld {
 
     public static void main(String[] args) {
         try {
@@ -32,7 +32,7 @@ public class Example2 {
 
     private static void action(Scheduler scheduler) throws SchedulerException {
         // define the job and tie it to our HelloJob class
-        JobDetail helloJob = JobBuilder.newJob(Example2Job.class)
+        JobDetail helloJob = JobBuilder.newJob(_2_HelloWorldJob.class)
                 .withIdentity("job1", "group1")
                 .build();
 

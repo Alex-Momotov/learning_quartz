@@ -17,12 +17,12 @@ import org.quartz.PersistJobDataAfterExecution;
 //----------------------------------------------------------------------------------------------------------------------
 @DisallowConcurrentExecution        // Means two jobs of the same JobDetail - or job key - cannot be executed concurrently
 @PersistJobDataAfterExecution       // Means changes to JobDataMap will be persisted after this JobDetail finishes executing
-public class Example4Job implements Job {
+public class _4_Job implements Job {
 
     static final String COUNTER = "counter";
     static final String NUM_EXCEPTIONS = "retries";
 
-    public Example4Job() {
+    public _4_Job() {
     }
 
     @Override

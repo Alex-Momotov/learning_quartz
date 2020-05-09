@@ -17,10 +17,10 @@ import org.quartz.JobExecutionException;
 //----------------------------------------------------------------------------------------------------------------------
 
 
-public class Example2Job implements Job {
+public class _2_HelloWorldJob implements Job {
 
     // Classes implementing Job must have no-arguments constructor
-    public Example2Job() {
+    public _2_HelloWorldJob() {
     }
 
     @Override

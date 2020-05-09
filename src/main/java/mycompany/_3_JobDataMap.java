@@ -12,11 +12,11 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import java.util.Arrays;
 
-import static mycompany.Example3Job.COMPLETION_MESSAGE_PARAM;
-import static mycompany.Example3Job.DB_CONNECTION_PARAM;
-import static mycompany.Example3Job.INTEGER_LIST_PARAM;
-import static mycompany.Example3Job.KAFKA_PRODUCER_PARAM;
-import static mycompany.Example3Job.REPETITION_NUM_PARAM;
+import static mycompany._3_Job.COMPLETION_MESSAGE_PARAM;
+import static mycompany._3_Job.DB_CONNECTION_PARAM;
+import static mycompany._3_Job.INTEGER_LIST_PARAM;
+import static mycompany._3_Job.KAFKA_PRODUCER_PARAM;
+import static mycompany._3_Job.REPETITION_NUM_PARAM;
 
 //----------------------------------------------------------------------------------------------------------------------
 //      Jobs
@@ -34,7 +34,7 @@ import static mycompany.Example3Job.REPETITION_NUM_PARAM;
 // JobDataMap can hold any amount of objects that you wish to make available to your job, but they must be serialisable.
 // JobDataMap implements java's Map interface.
 
-public class Example3 {
+public class _3_JobDataMap {
 
     public static void main(String[] args) {
         try {
@@ -72,7 +72,7 @@ public class Example3 {
         jobDataMap.put(DB_CONNECTION_PARAM, dbConnection);
         jobDataMap.put(KAFKA_PRODUCER_PARAM, kafkaProducer);
 
-        JobDetail job = JobBuilder.newJob(Example3Job.class)
+        JobDetail job = JobBuilder.newJob(_3_Job.class)
                 .withIdentity("name1", "group1")    // This will become JobDetail key retriveable via context.getJobDetail().getKey() in the Job class
                 .usingJobData(jobDataMap)           // We can provide instance of JobDataMap
                 .usingJobData("direct", 123L)       // Or we add values to JobDataMap within JobDetail directly

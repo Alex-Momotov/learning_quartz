@@ -10,8 +10,8 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static mycompany.Example4Job.COUNTER;
-import static mycompany.Example4Job.NUM_EXCEPTIONS;
+import static mycompany._4_Job.COUNTER;
+import static mycompany._4_Job.NUM_EXCEPTIONS;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Example of keeping state between executions of a particular JobDetail
@@ -26,7 +26,7 @@ import static mycompany.Example4Job.NUM_EXCEPTIONS;
 // If a job is being executed as recovery, the context.isRecovering() of JobExecutionContext will return true.
 //----------------------------------------------------------------------------------------------------------------------
 
-public class Example4 {
+public class _4_StateDurabilityRecovery {
 
     public static void main(String[] args) {
         try {
@@ -56,7 +56,7 @@ public class Example4 {
         jobMap.put(COUNTER, 1);
         jobMap.put(NUM_EXCEPTIONS, 3);
 
-        JobDetail job = JobBuilder.newJob(Example4Job.class)
+        JobDetail job = JobBuilder.newJob(_4_Job.class)
                 .withIdentity("name1", "group1")
                 .storeDurably()     // the job durability option
                 .requestRecovery()  // the job recovery option - cluster fail-over

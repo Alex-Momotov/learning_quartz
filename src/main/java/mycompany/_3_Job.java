@@ -1,16 +1,14 @@
 package mycompany;
 
-import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.PersistJobDataAfterExecution;
 
 import java.util.List;
 
 
-public class Example3Job implements Job {
+public class _3_Job implements Job {
 
     static final String INTEGER_LIST_PARAM          = "integer_list";
     static final String REPETITION_NUM_PARAM        = "repetition_number";
@@ -21,10 +19,10 @@ public class Example3Job implements Job {
     private List<Integer> integerList;
     private int repetitionNum;
     private String completionMessage;
-    private Example3.DbConnection dbConnection;
-    private Example3.KafkaProducer kafkaProducer;
+    private _3_JobDataMap.DbConnection dbConnection;
+    private _3_JobDataMap.KafkaProducer kafkaProducer;
 
-    public Example3Job() {
+    public _3_Job() {
     }
 
     @Override
@@ -47,8 +45,8 @@ public class Example3Job implements Job {
         this.integerList = (List<Integer>) jobDataMap.get(INTEGER_LIST_PARAM);
         this.repetitionNum = jobDataMap.getInt(REPETITION_NUM_PARAM);
         this.completionMessage = jobDataMap.getString(COMPLETION_MESSAGE_PARAM);
-        this.dbConnection = (Example3.DbConnection) jobDataMap.get(DB_CONNECTION_PARAM);
-        this.kafkaProducer = (Example3.KafkaProducer) jobDataMap.get(KAFKA_PRODUCER_PARAM);
+        this.dbConnection = (_3_JobDataMap.DbConnection) jobDataMap.get(DB_CONNECTION_PARAM);
+        this.kafkaProducer = (_3_JobDataMap.KafkaProducer) jobDataMap.get(KAFKA_PRODUCER_PARAM);
     }
 
     private void performJob() {
