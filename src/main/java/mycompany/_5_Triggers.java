@@ -22,6 +22,7 @@ import java.util.Date;
 // A trigger can have a particular start date and end date. This is a separate setting to the schedule.
 // Start date determines when the trigger will start firing will come to the effect.
 // End date determines the date after which the trigger will no longer fire.
+// EndDate and StartDate work for both SimpleTrigger and CronTrigger.
 
 //      Priority
 // When multiple triggers are fired at exactly the same time and there are not enough Quearz worker threads to execute

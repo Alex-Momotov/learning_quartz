@@ -30,6 +30,7 @@ public class _6_SimpleTrigger {
 
 //----------------------------------------------------------------------------------------------------------------------
 //      Basics
+// EndDate and StartDate work for both SimpleTrigger and CronTrigger.
 // The properties of a SimpleTrigger include: a start-time, and end-time, a repeat count, and a repeat interval.
 // Use SimpleTrigger when you want a job to execute at a point in time, then repeat a number of times with a given interval.
 
