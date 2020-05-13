@@ -1,20 +1,15 @@
 package mycompany;
 
+import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
-import java.time.Month;
-
-public class _7_CronTrigger {
-
-    final static String JOB_NAME = "job1";
-    final static String JOB_GROUP = "group1";
-
-    final static String TRIGGER_NAME = "trigger1";
-    final static String TRIGGER_GROUP = "group1";
+import static org.quartz.CronScheduleBuilder.cronSchedule;
+import static org.quartz.CronScheduleBuilder.dailyAtHourAndMinute;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 //----------------------------------------------------------------------------------------------------------------------
 //      Basics
@@ -71,7 +66,22 @@ public class _7_CronTrigger {
 // create two triggers, and register both of them to run the same job.
 
 //----------------------------------------------------------------------------------------------------------------------
+//      Misfire Instructions
+// When building CronTrigger, you specify the misfire instruction as part of the cron schedule (via CronScheduleBuilder).
+// There are 3 misfire instruction policies available to CronTrigger, listed below as schedule builder methods.
+// .withMisfireHandlingInstructionFireAndProceed()
+// .withMisfireHandlingInstructionDoNothing()
+// .withMisfireHandlingInstructionIgnoreMisfires()
 
+//----------------------------------------------------------------------------------------------------------------------
+
+public class _7_CronTrigger {
+
+    final static String JOB_NAME = "job1";
+    final static String JOB_GROUP = "group1";
+
+    final static String TRIGGER_NAME = "trigger1";
+    final static String TRIGGER_GROUP = "group1";
 
     public static void main(String[] args) {
         try {
@@ -91,6 +101,41 @@ public class _7_CronTrigger {
         return JobBuilder.newJob(_2_HelloWorldJob.class)
                 .withIdentity(JOB_NAME, JOB_GROUP)
                 .storeDurably()
+                .build();
+    }
+
+    // Trigger that will fire every other minute, between 8am and 5pm, every day:
+    public static CronTrigger cronTrigger() {
+        return newTrigger()
+                .withIdentity("trigger3", "group1")
+                .withSchedule(cronSchedule("0 0/2 8-17 * * ?"))
+                .build();
+    }
+
+    // Trigger that will fire daily at 10:42 am:
+    public static CronTrigger cronTrigger2() {
+        return newTrigger()
+                .withIdentity("trigger3", "group1")
+                .withSchedule(dailyAtHourAndMinute(10, 42))
+                .build();
+    }
+
+    // Trigger that will fire daily at 10:42 am (with cron expression)
+    public static CronTrigger cronTrigger3() {
+        return newTrigger()
+                .withIdentity("trigger3", "group1")
+                .withSchedule(cronSchedule("0 42 10 * * ?"))
+                .build();
+    }
+
+    // Cron trigger with misfire instructions
+    public static CronTrigger cronTrigger4() {
+        return newTrigger()
+                .withIdentity("trigger3", "group1")
+                .withSchedule(cronSchedule("0 0/2 8-17 * * ?")
+                    .withMisfireHandlingInstructionFireAndProceed()
+                    .withMisfireHandlingInstructionDoNothing()
+                    .withMisfireHandlingInstructionIgnoreMisfires())
                 .build();
     }
 

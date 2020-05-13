@@ -25,3 +25,55 @@ org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore
 "org.quartz.threadPool.threadCount = 3" means max of 3 jobs will be run simultaneously.
 
 //----------------------------------------------------------------------------------------------------------------------
+    JobStore
+- JobStore’s are responsible for keeping track of all the “work data” that you give to the scheduler: jobs, triggers, calendars, etc.
+- You declare which JobStore your scheduler should use (and it’s configuration settings) either in the properties file quartz.properties
+  or the Properties object. You then pass that file/object to the SchedulerFactory that you use to produce your scheduler instance.
+- Never use a JobStore instance directly in your code. Instead configure it via properties file and work with Scheduler instance directly.
+
+//----------------------------------------------------------------------------------------------------------------------
+    RamJobStore
+- Simplest to configure and most performant job store to use.
+- It keeps all of its data in RAM.
+- Biggest drawback - when your application stops or crashes, all the scheduling information is lost.
+- To use RamJobStore put this line in your quartz.properties file. There are no other settings to worry about.
+org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore
+
+//----------------------------------------------------------------------------------------------------------------------
+    JDBCJobStore
+- A bit more complex to configure than RamJobStore and not as fast, but the advantage is that the data persists after the application closes.
+- JDBCJobStore works with nearly any database, it has been used widely with Oracle, PostgreSQL, MySQL, MS SQLServer, HSQLDB, and DB2.
+
+    JDBCJobStore - Databases and tables
+- To use JDBCJobStore, you must first create a set of database tables for Quartz to use. To do that, use table creation sql scripts
+  which are located in Quartz distribution under 'src/org/quartz/impl/jdbcjobstore'
+- In those sql scripts all tables start with prefix 'QRTZ_'. The prefix can be anything you like as long as you inform
+  JDBCJobStore what the prefix is, in quartz.properties file. Using different prefixes may be useful for creating multiple
+  sets of tables, for multiple scheduler instances, within the same database.
+
+    JDBCJobStore - Transactions
+- If you don’t need to tie your scheduling commands (such as adding and removing triggers) to other transactions, then
+  you can let Quartz manage the transaction by using JobStoreTX as your JobStore.
+- If you need Quartz to work along with other transactions, then you should use JobStoreCMT
+- Depending on the choice you made about JobStoreTX vs JobStoreCMT add one of the following lines to your quartz.properties
+org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
+org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreCMT
+
+    JDBCJobStore - Driver Delegate
+- You need to select a DriverDelegate for the JobStore to use which is responsible for doing any JDBC work for your specific database.
+- The delegate to use is specified on the sql script for your specific database. For example for MySQL it is StdJDBCDelegate.
+- Therefore put this line into quartz.properties
+org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+
+- Specify which table prefix to use
+org.quartz.jobStore.tablePrefix = QRTZ_
+- Specify the name for the data source
+org.quartz.jobStore.dataSource = myDS
+
+- You should set the number of connections in the DataSource to be the size of the thread pool + 2.
+- Instruct JDBCJobStore that all values in JobDataMaps will be Strings by setting the below config line to 'true'.
+  Having them as Strings is much safer than storing those in the BLOB column, due to possible class versioning issues.
+org.quartz.jobStore.useProperties = true
+
+
+//----------------------------------------------------------------------------------------------------------------------

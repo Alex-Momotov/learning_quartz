@@ -36,7 +36,7 @@ public class _6_SimpleTrigger {
 
 //      Misfire Instructions
 // When building SimpleTriggers, you specify the misfire instruction as part of the simple schedule (via SimpleSchedulerBuilder).
-// There are 6 misfire instruction policies available to SimpleScheduler, listed below as schedule builder methods
+// There are 6 misfire instruction policies available to SimpleTrigger, listed below as schedule builder methods
 // .withMisfireHandlingInstructionFireNow()
 // .withMisfireHandlingInstructionIgnoreMisfires()
 // .withMisfireHandlingInstructionNextWithExistingCount()
