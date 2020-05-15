@@ -44,14 +44,14 @@ org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore
 - A bit more complex to configure than RamJobStore and not as fast, but the advantage is that the data persists after the application closes.
 - JDBCJobStore works with nearly any database, it has been used widely with Oracle, PostgreSQL, MySQL, MS SQLServer, HSQLDB, and DB2.
 
-    JDBCJobStore - Databases and tables
+    Databases and tables
 - To use JDBCJobStore, you must first create a set of database tables for Quartz to use. To do that, use table creation sql scripts
   which are located in Quartz distribution under 'src/org/quartz/impl/jdbcjobstore'
 - In those sql scripts all tables start with prefix 'QRTZ_'. The prefix can be anything you like as long as you inform
   JDBCJobStore what the prefix is, in quartz.properties file. Using different prefixes may be useful for creating multiple
   sets of tables, for multiple scheduler instances, within the same database.
 
-    JDBCJobStore - Transactions
+    Transactions
 - If you don’t need to tie your scheduling commands (such as adding and removing triggers) to other transactions, then
   you can let Quartz manage the transaction by using JobStoreTX as your JobStore.
 - If you need Quartz to work along with other transactions, then you should use JobStoreCMT
@@ -59,21 +59,34 @@ org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore
 org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
 org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreCMT
 
-    JDBCJobStore - Driver Delegate
+    Driver Delegate
 - You need to select a DriverDelegate for the JobStore to use which is responsible for doing any JDBC work for your specific database.
 - The delegate to use is specified on the sql script for your specific database. For example for MySQL it is StdJDBCDelegate.
 - Therefore put this line into quartz.properties
 org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate
 
+    Table Prefix and DataSource
 - Specify which table prefix to use
 org.quartz.jobStore.tablePrefix = QRTZ_
 - Specify the name for the data source
 org.quartz.jobStore.dataSource = myDS
 
+    Number Of Connections And Serialisation
 - You should set the number of connections in the DataSource to be the size of the thread pool + 2.
 - Instruct JDBCJobStore that all values in JobDataMaps will be Strings by setting the below config line to 'true'.
   Having them as Strings is much safer than storing those in the BLOB column, due to possible class versioning issues.
 org.quartz.jobStore.useProperties = true
+
+    DataSource
+- If using JDBC you must configure the data source using all of the below.
+org.quartz.dataSource.myDS.driver: com.mysql.jdbc.Driver
+org.quartz.dataSource.myDS.URL: jdbc:mysql://localhost:3306/quartz_play
+org.quartz.dataSource.myDS.user: root
+org.quartz.dataSource.myDS.password:
+org.quartz.dataSource.myDS.maxConnections: 5
+org.quartz.dataSource.myDS.validationQuery: select 0
+
+
 
 
 //----------------------------------------------------------------------------------------------------------------------

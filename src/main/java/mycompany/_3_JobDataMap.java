@@ -10,6 +10,7 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import static mycompany._3_Job.COMPLETION_MESSAGE_PARAM;
@@ -42,10 +43,7 @@ public class _3_JobDataMap {
             scheduler.start();
 
             action(scheduler);
-            Thread.sleep(15_000);
-
-            scheduler.shutdown();
-        } catch (SchedulerException | InterruptedException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }
@@ -81,8 +79,8 @@ public class _3_JobDataMap {
         scheduler.scheduleJob(job, simpleTrigger());
     }
 
-    static class DbConnection {/*I represent an open database connection*/}
-    static class KafkaProducer {/*I represent a running Kafka producer*/}
+    static class DbConnection implements Serializable {/*I represent an open database connection*/}
+    static class KafkaProducer implements Serializable {/*I represent a running Kafka producer*/}
 
 }
 

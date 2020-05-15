@@ -22,10 +22,8 @@ public class _2_HelloWorld {
             scheduler.start();
 
             action(scheduler);
-            Thread.sleep(15_000);
 
-            scheduler.shutdown();
-        } catch (SchedulerException | InterruptedException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }

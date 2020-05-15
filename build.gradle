@@ -18,9 +18,10 @@ dependencies {
 
 
     // quartz
-//    compile fileTree(include: ['*.jar'], dir: 'quartz_libs')
     compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.0'
 
+    // mysql
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.19'
 
 
     // testing

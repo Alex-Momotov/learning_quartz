@@ -31,13 +31,10 @@ public class _4_StateDurabilityRecovery {
     public static void main(String[] args) {
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-             scheduler.start();
+            scheduler.start();
 
             action(scheduler);
-            Thread.sleep(10_000);
-
-            scheduler.shutdown();
-        } catch (SchedulerException | InterruptedException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }
@@ -57,7 +54,7 @@ public class _4_StateDurabilityRecovery {
         jobMap.put(NUM_EXCEPTIONS, 3);
 
         JobDetail job = JobBuilder.newJob(_4_Job.class)
-                .withIdentity("name1", "group1")
+                .withIdentity("name2", "group1")
                 .storeDurably()     // the job durability option
                 .requestRecovery()  // the job recovery option - cluster fail-over
                 .setJobData(jobMap)
