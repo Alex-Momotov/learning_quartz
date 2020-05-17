@@ -86,7 +86,19 @@ org.quartz.dataSource.myDS.password:
 org.quartz.dataSource.myDS.maxConnections: 5
 org.quartz.dataSource.myDS.validationQuery: select 0
 
-
-
+//----------------------------------------------------------------------------------------------------------------------
+    Clustering
+- Put this line in quartz.properties
+org.quartz.jobStore.isClustered=true
+- All Quartz instances must have the same copy of quartz.properties
+- Each node in Quartz cluster must have a unique value in the below property. To achieve this without having separate
+  quartz.properties files, put the value as 'AUTO'.
+org.quartz.scheduler.instanceId=AUTO
+- Never run clustering on separate machines, unless their clocks are synchronized using some form of time-sync service
+  (daemon) that runs very regularly (the clocks must be within a second of each other).
+- Never fire-up a non-clustered instance against the same set of tables that any other instance is running against.
+- Only one node will fire the job for each firing. But it won't necessarily be the same node.
 
 //----------------------------------------------------------------------------------------------------------------------
+
+
